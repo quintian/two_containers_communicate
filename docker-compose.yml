@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  cat-container:
+    build:
+      context: ./cat-container
+    ports:
+      - "8081:80"
+    depends_on:
+      - grep-container
+    volumes:
+      - ./testfile.txt:/data/testfile.txt
+
+  grep-container:
+    build:
+      context: ./grep-container
+    ports:
+      - "8082:8080"
+
+
+# 3. get one line with 'test' version
+# version: '3.8'
+
+# services:
+#   cat-container:
+#     build:
+#       context: ./cat-container
+#     volumes:
+#       - ./testfile.txt:/data/testfile.txt
+#     depends_on:
+#       - grep-container
+
+#   grep-container:
+#     build:
+#       context: ./grep-container
+#     ports:
+#       - "8081:8080" # Map host port 8081 to container port 8080
+
+# networks:
+#   default:
+#     driver: bridge
+
+
+# version: '3.8'
+
+# services:
+#   cat-container:
+#     build:
+#       context: ./cat-container
+#     volumes:
+#       - ./testfile.txt:/data/testfile.txt
+#     depends_on:
+#       - grep-container
+
+#   grep-container:
+#     build:
+#       context: ./grep-container
+#     ports:
+#       - "8081:8080" # Map host port 8081 to container port 8080
+
+# networks:
+#   default:
+#     driver: bridge
+
+
+# version: '3'
+# services:
+#   cat:
+#     build:
+#       context: ./cat-container
+#     depends_on:
+#       - grep
+#     networks:
+#       - my_network
+#     ports:
+#       - "8081:80"
+#     # command: sh -c "cat /app/testfile.txt | nc grep-container 8082"
+#   grep:
+#     build:
+#       context: ./grep-container
+#     networks:
+#       - my_network
+#     ports:
+#       - "8082:8080"
+#     command: sh -c "nc -l -p 8080 | grep 'test'"
+#     mem_limit: 1000m  # Adjust this value as needed
+# networks:
+#   my_network:
+#     driver: bridge
+
+
+# version: '3'
+
+# services:
+#   cat:
+#     build:
+#       context: ./cat-container
+#     #command: tail -f /dev/null
+    
+    
+#     networks:
+#       - my_network
+#     ports:
+#       - "8080:80" # cat-container runs on 80, accessible on hostmachine 8080
+#     command: sh -c "cat /app/testfile.txt | nc grep-container 8080"
+#     # volumes:
+#     #   - ./testfile.txt:/app/testfile.txt
+
+#   grep:
+#     build:
+#       context: ./grep-container
+    
+#     networks:
+#       - my_network
+
+#     ports:
+#       - "8081:8080" # grep-container runs on 8080, accessible on hostmachine 8081
+#     command: sh -c "nc -l -p 8080 | grep 'test'"
+
+# networks:
+#   my_network:
+#     driver: bridge
+
