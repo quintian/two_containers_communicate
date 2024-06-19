@@ -1,0 +1,18 @@
+#version: '3.8'
+
+services:
+  cat-container:
+    build:
+      context: ./cat-container
+    ports:
+      - "8081:80"
+    depends_on:
+      - grep-container
+    # volumes:
+    #   - ./testfile.txt:/data/testfile.txt
+
+  grep-container:
+    build:
+      context: ./grep-container
+    ports:
+      - "8082:8080"
